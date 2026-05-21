@@ -4,19 +4,19 @@
 
 ## 변경 파일
 
-- `index.html`: Google Apps Script API 호출, 대상지/검사 일정/완료 화면, 엑셀 백업/복원
+- `index.html`: 화면, Google Apps Script API 호출, 충전소 검색, 엑셀 백업/복원
 - `Code.gs`: Google Sheets를 데이터 저장소로 사용하는 Apps Script Web App API
 - `README.md`: 설정 및 배포 방법
 
 ## 사용자가 직접 설정해야 하는 값
 
-`index.html`에서 아래 값을 Apps Script 웹 앱 URL로 교체합니다.
+`index.html`의 아래 값을 Apps Script 웹 앱 URL로 설정합니다.
 
 ```js
-const GAS_WEB_APP_URL = '';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/여기에_본인_URL/exec';
 ```
 
-`Code.gs`에서 아래 값을 사용할 Google Sheets 문서 ID로 확인합니다.
+`Code.gs`의 아래 값은 사용할 Google Sheets 문서 ID입니다.
 
 ```js
 const SPREADSHEET_ID = '1KjSZGr5mwrFWIMLAPdBFONNXdYMF1eJCXPj4b33xMBY';
@@ -33,7 +33,7 @@ Apps Script는 아래 4개 탭을 사용합니다. 탭이 없으면 자동 생�
 | `대상지_리스트` | 대상지 탭 데이터 |
 | `검사_일정` | 검사 일정 탭 데이터 |
 | `완료` | 완료 탭 데이터 |
-| `충전소DB` | 충전소 업로드 데이터 |
+| `충전소DB` | 충전소목록 최신화 업로드 데이터 |
 
 업무 데이터 탭 컬럼:
 
@@ -50,47 +50,51 @@ name, no, road, jibun, addr, region, city, op, kind, indoor,
 slow7, fast53, ultra105
 ```
 
-컬럼 구조가 바뀌면 `Code.gs`의 `BUSINESS_HEADERS`, `STATION_HEADERS`와 `index.html`의 필드명이 함께 맞아야 합니다.
+## 충전소목록 최신화 동작
+
+`충전소목록 최신화` 버튼으로 엑셀 파일을 업로드하면 웹앱은 엑셀 안에서 충전소명, 충전소 번호, 주소, 완속/급속/초급속 수량 컬럼을 찾아 `충전소DB` 탭에 저장합니다.
+
+중요한 점:
+
+- 충전소목록 최신화는 `충전소DB` 탭만 교체합니다.
+- 이미 추가한 `대상지_리스트`, `검사_일정`, `완료` 항목은 삭제하지 않습니다.
+- 충전소 검색 결과가 0건이면 엑셀 파일의 머리글 행에 `충전소명`, `충전소 번호`, `주소`에 해당하는 컬럼이 있는지 확인합니다.
+- `Code.gs`를 수정한 뒤 Apps Script에서 새 버전으로 다시 배포하지 않으면 `saveStationDb` 요청이 실패할 수 있습니다.
 
 ## Apps Script 배포 방법
 
 1. [Google Apps Script](https://script.google.com/)에서 프로젝트를 엽니다.
-2. `Code.gs` 내용을 이 저장소의 `Code.gs` 내용으로 교체합니다.
-3. `Code.gs` 상단의 `SPREADSHEET_ID`가 실제 Google Sheets ID와 같은지 확인합니다.
-4. 상단 메뉴에서 `배포 > 새 배포`를 선택합니다.
-5. 유형 선택에서 `웹 앱`을 선택합니다.
-6. 설정은 아래처럼 둡니다.
+2. 왼쪽 파일 목록에서 `Code.gs`를 클릭합니다.
+3. 이 저장소의 `Code.gs` 전체 내용을 복사해서 기존 내용을 전부 교체합니다.
+4. 저장 아이콘 또는 `Ctrl + S`로 저장합니다.
+5. 상단 메뉴에서 `배포 > 새 배포`를 선택합니다.
+6. 유형 선택에서 `웹 앱`을 선택합니다.
+7. 설정은 아래처럼 둡니다.
    - 실행 사용자: `나`
-   - 액세스 권한: 외부 로컬 HTML 또는 배포 사이트에서 접속할 경우 `모든 사용자`
-7. `배포`를 누르고 권한 승인을 완료합니다.
-8. 배포 후 표시되는 웹 앱 URL을 복사합니다.
-9. `index.html`의 `GAS_WEB_APP_URL`에 복사한 URL을 입력합니다.
-10. 변경 사항을 GitHub에 다시 커밋하면 배포 사이트가 최신 파일을 사용합니다.
-
-## GitHub Pages 배포 방법
-
-1. GitHub 저장소에서 `Settings > Pages`로 이동합니다.
-2. Source를 `Deploy from a branch`로 선택합니다.
-3. Branch를 `main`, folder를 `/root`로 선택합니다.
-4. 저장 후 GitHub Pages URL이 생성될 때까지 기다립니다.
-5. Apps Script URL을 입력한 `index.html`이 `main`에 반영되어 있어야 실제 저장이 동작합니다.
+   - 액세스 권한: 외부 사이트에서 접속할 경우 `모든 사용자`
+8. `배포`를 누르고 권한 승인을 완료합니다.
+9. 배포 후 표시되는 웹 앱 URL을 복사합니다. 주소는 `/exec`로 끝나야 합니다.
+10. `index.html`의 `GAS_WEB_APP_URL`에 복사한 URL을 입력합니다.
+11. `Code.gs`를 나중에 다시 수정했다면 `배포 > 배포 관리 > 수정 > 새 버전`으로 다시 배포합니다.
 
 ## 테스트 방법
 
 1. Apps Script 웹 앱 URL을 브라우저 주소창에 직접 열어 `ok: true` 응답이 보이는지 확인합니다.
-2. 배포된 웹앱 또는 `index.html`을 엽니다.
-3. 화면 상단에 Google Sheets 연결 실패 알림이 없는지 확인합니다.
-4. 대상지를 추가합니다.
-5. Google Sheets의 `대상지_리스트` 탭에 행이 저장되는지 확인합니다.
-6. 대상지를 검사 일정으로 이동하고 `검사_일정` 탭이 갱신되는지 확인합니다.
-7. 완료 이동 후 `완료` 탭이 갱신되는지 확인합니다.
-8. 엑셀 백업과 엑셀 복원 기능이 동작하는지 확인합니다.
-9. `구글시트 새로고침` 버튼으로 시트 데이터를 다시 불러올 수 있는지 확인합니다.
+2. 배포된 웹앱 또는 Netlify 미리보기를 엽니다.
+3. `충전소목록 최신화` 버튼으로 충전소 엑셀 파일을 업로드합니다.
+4. 안내문이 `충전소DB 0건`이 아니라 실제 건수로 표시되는지 확인합니다.
+5. Google Sheets의 `충전소DB` 탭에 데이터가 저장되는지 확인합니다.
+6. `대상지_리스트` 화면의 `충전소 검색`에서 충전소명을 검색합니다.
+7. 검색 결과를 체크하면 오른쪽 `선택한 충전소 상세`에 표시되는지 확인합니다.
+8. `대상지_리스트에 추가`를 눌러 대상지에 추가합니다.
+9. Google Sheets의 `대상지_리스트` 탭에 새 행이 저장되는지 확인합니다.
+10. 같은 상태에서 다시 `충전소목록 최신화`를 실행해도 `대상지_리스트`, `검사_일정`, `완료` 탭의 기존 행이 사라지지 않는지 확인합니다.
+11. 엑셀 백업과 엑셀 복원 기능이 동작하는지 확인합니다.
 
 ## 배포 전 확인사항
 
 - `index.html`의 `GAS_WEB_APP_URL`이 비어 있지 않은지 확인합니다.
-- Apps Script를 수정한 뒤에는 `배포 관리`에서 새 버전으로 다시 배포합니다.
+- Apps Script를 수정한 뒤에는 반드시 새 버전으로 다시 배포합니다.
 - Web App 액세스 권한이 실제 접속 환경과 맞는지 확인합니다.
 - Google Sheets 첫 행은 Apps Script가 자동으로 관리하므로 임의로 컬럼명을 바꾸지 않습니다.
 - Apps Script URL, 시트 ID, 탭 이름 중 하나라도 틀리면 화면 상단에 연결 실패 알림이 표시됩니다.
