@@ -1,5 +1,5 @@
 const SPREADSHEET_ID = '1KjSZGr5mwrFWIMLAPdBFONNXdYMF1eJCXPj4b33xMBY';
-const FRONTEND_URL = 'https://deploy-preview-2--stupendous-valkyrie-12e79e.netlify.app';
+const FRONTEND_URL = 'https://tae-bin.github.io/inspection-schedule-manager/';
 const SESSION_TTL_SECONDS = 6 * 60 * 60;
 const AUTH_USERS_PROPERTY = 'APP_USERS_JSON';
 
