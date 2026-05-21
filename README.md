@@ -6,12 +6,14 @@
 
 주소는 2개가 있습니다.
 
-| 주소 | 용도 |
-| --- | --- |
-| Netlify/GitHub Pages 주소 | 사용자가 실제로 접속하는 화면 주소 |
-| Apps Script Web App URL | Google Sheets 저장/조회 API 주소 |
+| 주소 | 용도 | 공유 대상 |
+| --- | --- | --- |
+| Netlify/GitHub Pages 주소 | 사용자가 실제로 접속하는 화면 주소 | 사용자에게 공유 |
+| Apps Script Web App URL | Google Sheets 저장/조회 API 주소 | `index.html` 내부 설정용 |
 
-Apps Script Web App URL을 브라우저에 직접 열면 예전에는 JSON 문구가 보였습니다. 이제는 실제 화면 주소로 안내/이동하도록 바꿨습니다. 그래도 기본 개념은 같습니다. 사용자는 Netlify/GitHub Pages 주소로 접속하고, 화면 내부에서 Apps Script URL을 데이터 저장용으로 사용합니다.
+사용자에게는 Apps Script Web App URL을 공유하지 말고 Netlify/GitHub Pages 화면 주소를 공유합니다.
+
+Apps Script Web App URL을 직접 열면 실제 앱 화면이 아니라 안내 페이지가 뜹니다. 안내 페이지에 있는 `웹앱 열기` 버튼을 누르면 실제 화면 주소로 이동합니다. 일부 모바일 앱 내 브라우저나 Google 계정이 여러 개 로그인된 브라우저에서는 Apps Script 안내 페이지가 `현재 파일을 열 수 없습니다`로 막힐 수 있습니다. 이 경우 Apps Script 주소가 아니라 Netlify/GitHub Pages 주소를 크롬/엣지 주소창에 직접 입력합니다.
 
 ## 변경 파일
 
@@ -33,13 +35,13 @@ const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/여기에_본인_URL
 const SPREADSHEET_ID = '1KjSZGr5mwrFWIMLAPdBFONNXdYMF1eJCXPj4b33xMBY';
 ```
 
-`Code.gs`의 아래 값은 Apps Script URL을 직접 열었을 때 이동시킬 실제 화면 주소입니다.
+`Code.gs`의 아래 값은 Apps Script URL을 직접 열었을 때 표시할 실제 화면 주소입니다.
 
 ```js
 const FRONTEND_URL = 'https://deploy-preview-2--stupendous-valkyrie-12e79e.netlify.app';
 ```
 
-최종 배포 사이트 주소가 따로 있으면 `FRONTEND_URL`을 그 주소로 바꿉니다.
+최종 운영 사이트 주소가 따로 있으면 `FRONTEND_URL`을 그 주소로 바꿉니다.
 
 ## 로그인 사용자 설정
 
@@ -57,25 +59,18 @@ const FRONTEND_URL = 'https://deploy-preview-2--stupendous-valkyrie-12e79e.netli
 APP_USERS_JSON
 ```
 
-6. 값에는 아래 형식으로 입력합니다.
+6. 값에는 아래 형식으로 입력합니다. 사용자 항목 사이에는 반드시 쉼표가 필요합니다.
 
 ```json
 [
-  { "id": "admin", "password": "원하는비밀번호", "name": "관리자" }
+  { "id": "tbpark", "password": "tbpark1", "name": "관리자" },
+  { "id": "humaxev1", "password": "1111", "name": "사용자1" },
+  { "id": "humaxev2", "password": "2222", "name": "사용자2" }
 ]
 ```
 
-7. 여러 명을 허용하려면 쉼표로 추가합니다.
-
-```json
-[
-  { "id": "admin", "password": "관리자비밀번호", "name": "관리자" },
-  { "id": "user1", "password": "사용자1비밀번호", "name": "사용자1" }
-]
-```
-
-8. 저장합니다.
-9. `Code.gs`를 수정했다면 `배포 > 배포 관리 > 수정 > 새 버전`으로 다시 배포합니다.
+7. 저장합니다.
+8. `Code.gs`를 수정했다면 `배포 > 배포 관리 > 수정 > 새 버전`으로 다시 배포합니다.
 
 주의: 이 방식은 화면 접근과 Google Sheets API 사용을 로그인으로 막습니다. 다만 정적 웹사이트 파일 자체는 Netlify/GitHub Pages에 공개되어 있을 수 있습니다. 실제 데이터 조회/저장은 로그인 토큰이 없으면 거부됩니다.
 
@@ -134,7 +129,7 @@ slow7, fast53, ultra105
 
 ## 테스트 방법
 
-1. 배포된 웹앱 또는 Netlify 미리보기를 엽니다.
+1. Netlify/GitHub Pages 화면 주소를 엽니다.
 2. 로그인 화면이 보이는지 확인합니다.
 3. Apps Script의 `APP_USERS_JSON`에 설정한 아이디/비밀번호로 로그인합니다.
 4. 로그인 성공 후 대시보드와 대상지 화면이 보이는지 확인합니다.
@@ -156,4 +151,4 @@ slow7, fast53, ultra105
 - Apps Script를 수정한 뒤에는 반드시 새 버전으로 다시 배포합니다.
 - Web App 액세스 권한이 실제 접속 환경과 맞는지 확인합니다.
 - Google Sheets 첫 행은 Apps Script가 자동으로 관리하므로 임의로 컬럼명을 바꾸지 않습니다.
-- Apps Script URL, 시트 ID, 탭 이름 중 하나라도 틀리면 화면 상단에 연결 실패 알림이 표시됩니다.
+- 사용자에게 공유하는 주소가 Apps Script URL이 아니라 Netlify/GitHub Pages 화면 주소인지 확인합니다.
