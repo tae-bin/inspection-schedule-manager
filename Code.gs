@@ -1,4 +1,7 @@
 const SPREADSHEET_ID = '1KjSZGr5mwrFWIMLAPdBFONNXdYMF1eJCXPj4b33xMBY';
+const FRONTEND_URL = 'https://deploy-preview-2--stupendous-valkyrie-12e79e.netlify.app';
+const SESSION_TTL_SECONDS = 6 * 60 * 60;
+const AUTH_USERS_PROPERTY = 'APP_USERS_JSON';
 
 const SHEETS = {
   targets: '대상지_리스트',
@@ -44,16 +47,36 @@ const STATION_HEADERS = [
   'ultra105'
 ];
 
-function doGet() {
-  return json_({
-    ok: true,
-    message: 'Inspection Schedule Manager Apps Script API is running.'
-  });
+function doGet(e) {
+  if (e && e.parameter && e.parameter.health === '1') {
+    return json_({
+      ok: true,
+      message: '검사 일정 관리자 앱 스크립트 API가 실행 중입니다.'
+    });
+  }
+
+  return HtmlService.createHtmlOutput(
+    '<!doctype html><html lang="ko"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>검사 일정 관리자</title>' +
+    '<style>body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f8fb;color:#172033;display:grid;place-items:center;min-height:100vh}.box{background:#fff;border:1px solid #d9e2ef;border-radius:14px;padding:28px;max-width:520px;box-shadow:0 12px 30px rgba(15,23,42,.08)}a{display:inline-block;margin-top:16px;background:#2563eb;color:#fff;text-decoration:none;border-radius:10px;padding:11px 14px;font-weight:700}.muted{color:#64748b;font-size:14px}</style>' +
+    '</head><body><div class="box"><h1>검사 일정 관리자</h1>' +
+    '<p class="muted">이 주소는 Google Sheets 저장을 담당하는 Apps Script API 주소입니다. 실제 화면 주소로 이동합니다.</p>' +
+    '<a href="' + FRONTEND_URL + '">웹앱 열기</a></div>' +
+    '<script>setTimeout(function(){location.replace("' + FRONTEND_URL + '");},1200);</script>' +
+    '</body></html>'
+  ).setTitle('검사 일정 관리자');
 }
 
 function doPost(e) {
   try {
     const payload = JSON.parse((e.postData && e.postData.contents) || '{}');
+
+    if (payload.action === 'login') {
+      return json_({ ok: true, data: login_(payload.userId, payload.password) });
+    }
+
+    requireAuth_(payload.token);
 
     if (payload.action === 'loadState') {
       return json_({ ok: true, data: loadState_() });
@@ -73,6 +96,58 @@ function doPost(e) {
   } catch (error) {
     return json_({ ok: false, message: error.message });
   }
+}
+
+function login_(userId, password) {
+  const id = String(userId || '').trim();
+  const pw = String(password || '');
+  const users = getAuthUsers_();
+  const user = users.find((item) => item.id === id && item.password === pw);
+
+  if (!user) {
+    throw new Error('아이디 또는 비밀번호가 올바르지 않습니다.');
+  }
+
+  const token = Utilities.getUuid() + ':' + Utilities.getUuid();
+  CacheService.getScriptCache().put('auth:' + token, JSON.stringify({ id: user.id, name: user.name || user.id }), SESSION_TTL_SECONDS);
+
+  return {
+    token: token,
+    user: { id: user.id, name: user.name || user.id },
+    expiresIn: SESSION_TTL_SECONDS
+  };
+}
+
+function getAuthUsers_() {
+  const raw = PropertiesService.getScriptProperties().getProperty(AUTH_USERS_PROPERTY);
+
+  if (!raw) {
+    throw new Error('로그인 사용자 설정이 없습니다. Apps Script 스크립트 속성에 APP_USERS_JSON을 설정하세요.');
+  }
+
+  const users = JSON.parse(raw);
+
+  if (!Array.isArray(users) || !users.length) {
+    throw new Error('APP_USERS_JSON은 사용자 배열이어야 합니다.');
+  }
+
+  return users;
+}
+
+function requireAuth_(token) {
+  const key = String(token || '').trim();
+
+  if (!key) {
+    throw new Error('LOGIN_REQUIRED');
+  }
+
+  const session = CacheService.getScriptCache().get('auth:' + key);
+
+  if (!session) {
+    throw new Error('LOGIN_REQUIRED');
+  }
+
+  return JSON.parse(session);
 }
 
 function json_(data) {
