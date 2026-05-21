@@ -64,6 +64,11 @@ function doPost(e) {
       return json_({ ok: true, data: { savedAt: new Date().toISOString() } });
     }
 
+    if (payload.action === 'saveStationDb') {
+      saveStationDb_(payload.stationDb || []);
+      return json_({ ok: true, data: { savedAt: new Date().toISOString() } });
+    }
+
     throw new Error('Unsupported action: ' + payload.action);
   } catch (error) {
     return json_({ ok: false, message: error.message });
@@ -93,6 +98,14 @@ function saveState_(state) {
   if (Array.isArray(state.stationDb)) {
     writeObjects_(SHEETS.stationDb, STATION_HEADERS, state.stationDb);
   }
+}
+
+function saveStationDb_(stationDb) {
+  if (!Array.isArray(stationDb)) {
+    throw new Error('stationDb must be an array.');
+  }
+
+  writeObjects_(SHEETS.stationDb, STATION_HEADERS, stationDb);
 }
 
 function readObjects_(sheetName, headers) {
