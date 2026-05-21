@@ -56,15 +56,16 @@ function doGet(e) {
   }
 
   return HtmlService.createHtmlOutput(
-    '<!doctype html><html lang="ko"><head><meta charset="utf-8">' +
+    '<!doctype html><html lang="ko"><head><base target="_top"><meta charset="utf-8">' +
     '<meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>검사 일정 관리자</title>' +
-    '<style>body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f8fb;color:#172033;display:grid;place-items:center;min-height:100vh}.box{background:#fff;border:1px solid #d9e2ef;border-radius:14px;padding:28px;max-width:520px;box-shadow:0 12px 30px rgba(15,23,42,.08)}a{display:inline-block;margin-top:16px;background:#2563eb;color:#fff;text-decoration:none;border-radius:10px;padding:11px 14px;font-weight:700}.muted{color:#64748b;font-size:14px}</style>' +
+    '<style>body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f8fb;color:#172033;display:grid;place-items:center;min-height:100vh}.box{background:#fff;border:1px solid #d9e2ef;border-radius:14px;padding:28px;max-width:560px;box-shadow:0 12px 30px rgba(15,23,42,.08)}a{display:inline-block;margin-top:16px;background:#2563eb;color:#fff;text-decoration:none;border-radius:10px;padding:11px 14px;font-weight:700}.muted{color:#64748b;font-size:14px;line-height:1.6}.url{word-break:break-all;background:#f8fafc;border:1px solid #d9e2ef;border-radius:10px;padding:10px 12px;font-size:13px}</style>' +
     '</head><body><div class="box"><h1>검사 일정 관리자</h1>' +
-    '<p class="muted">이 주소는 Google Sheets 저장을 담당하는 Apps Script API 주소입니다. 실제 화면 주소로 이동합니다.</p>' +
-    '<a href="' + FRONTEND_URL + '">웹앱 열기</a></div>' +
-    '<script>setTimeout(function(){location.replace("' + FRONTEND_URL + '");},1200);</script>' +
-    '</body></html>'
+    '<p class="muted">이 주소는 Google Sheets 저장을 담당하는 Apps Script API 주소입니다. 실제 사용 화면은 아래 웹앱 주소로 접속하세요.</p>' +
+    '<p class="url">' + FRONTEND_URL + '</p>' +
+    '<a href="' + FRONTEND_URL + '">웹앱 열기</a>' +
+    '<p class="muted">이 안내 페이지가 열리지 않는 환경에서는 위 주소를 복사해 크롬/엣지 주소창에 직접 붙여넣어 주세요.</p>' +
+    '</div></body></html>'
   ).setTitle('검사 일정 관리자');
 }
 
@@ -125,7 +126,13 @@ function getAuthUsers_() {
     throw new Error('로그인 사용자 설정이 없습니다. Apps Script 스크립트 속성에 APP_USERS_JSON을 설정하세요.');
   }
 
-  const users = JSON.parse(raw);
+  let users;
+
+  try {
+    users = JSON.parse(raw);
+  } catch (error) {
+    throw new Error('APP_USERS_JSON 문법 오류입니다. 사용자 항목 사이에 쉼표(,)가 있는지 확인하세요. 원문 오류: ' + error.message);
+  }
 
   if (!Array.isArray(users) || !users.length) {
     throw new Error('APP_USERS_JSON은 사용자 배열이어야 합니다.');
