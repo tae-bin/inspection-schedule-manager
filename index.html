@@ -25,7 +25,7 @@
 <section id="completedSection" class="section"><section class="card"><h2>완료</h2><div class="toptools"><div style="min-width:280px"><label>완료 목록 검색</label><input id="completeFilter" placeholder="관리번호, 충전소명, 번호, 주소, 담당자 검색"></div></div><div class="tablewrap"><table class="target"><thead><tr><th>완료일자</th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>신청일자</th><th>검사예정일</th><th>시간</th><th>결과</th><th>필증수령일</th><th>메모</th><th>처리</th></tr></thead><tbody id="completeBody"></tbody></table></div></section></section>
 </div></main>
 <script>
-const GAS_WEB_APP_URL="https://script.google.com/macros/s/AKfycbx4lujVMkVawP-RtidAxmCwkN8npC1iqqmWoX6upvcBMgcaxXbSgxydAFvk0kzEhHAL/exec";
+const GAS_WEB_APP_URL="https://script.google.com/macros/s/AKfycbzO4ZaYdlHH0zXqha8NtjfFlWZLygjONsg1O1pd0YIdKvHM-6VZGRPO0z0ZGU3359Pv/exec";
 const $=id=>document.getElementById(id);const todayISO=()=>new Date().toISOString().slice(0,10);const makeId=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random());
 let activeStage="targets",targets=[],schedules=[],completed=[],stationDb=[],selectedStationKeys=new Set(),saveTimer=null,isLoading=false,authToken=sessionStorage.getItem("inspectionAuthToken")||"",authUser=JSON.parse(sessionStorage.getItem("inspectionAuthUser")||"null");
 const STATION_TYPES=[{key:"slow7",label:"완속(7kW)/CH"},{key:"fast53",label:"급속(53kW)/CH"},{key:"ultra105",label:"초급속(105kW)/CH"}];
