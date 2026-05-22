@@ -22,6 +22,7 @@ const BUSINESS_HEADERS = [
   'chargerCh',
   'manager',
   'phone',
+  'hevManager',
   'requestDate',
   'inspectDate',
   'inspectTime',
@@ -85,12 +86,12 @@ function doPost(e) {
 
     if (payload.action === 'saveState') {
       saveState_(payload.state || {});
-      return json_({ ok: true, data: { savedAt: new Date().toISOString() } });
+      return json_({ ok: true, data: { savedAt: new Date().toISOString(), summary: getStateSummary_() } });
     }
 
     if (payload.action === 'saveStationDb') {
       saveStationDb_(payload.stationDb || []);
-      return json_({ ok: true, data: { savedAt: new Date().toISOString() } });
+      return json_({ ok: true, data: { savedAt: new Date().toISOString(), summary: getStateSummary_() } });
     }
 
     throw new Error('Unsupported action: ' + payload.action);
@@ -169,6 +170,16 @@ function loadState_() {
     schedules: readObjects_(SHEETS.schedules, BUSINESS_HEADERS),
     completed: readObjects_(SHEETS.completed, BUSINESS_HEADERS),
     stationDb: readObjects_(SHEETS.stationDb, STATION_HEADERS)
+  };
+}
+
+function getStateSummary_() {
+  const state = loadState_();
+  return {
+    targets: state.targets.length,
+    schedules: state.schedules.length,
+    completed: state.completed.length,
+    stationDb: state.stationDb.length
   };
 }
 
