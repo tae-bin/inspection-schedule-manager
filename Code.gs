@@ -10,42 +10,42 @@ const SHEETS = {
   stationDb: '충전소DB'
 };
 
-const BUSINESS_HEADERS = [
-  'id',
-  'groupId',
-  'regDate',
-  'serial',
-  'name',
-  'no',
-  'address',
-  'chargerType',
-  'chargerCh',
-  'manager',
-  'phone',
-  'hevManager',
-  'requestDate',
-  'inspectDate',
-  'inspectTime',
-  'result',
-  'certificateDate',
-  'memo',
-  'completedAt'
+const BUSINESS_FIELDS = [
+  { key: 'id', label: 'id' },
+  { key: 'groupId', label: 'groupId' },
+  { key: 'regDate', label: '등록일자' },
+  { key: 'serial', label: '관리번호' },
+  { key: 'name', label: '충전소명' },
+  { key: 'no', label: '충전소 번호', aliases: ['충전소번호'] },
+  { key: 'address', label: '주소' },
+  { key: 'chargerType', label: '충전기 종류', aliases: ['충전기종류'] },
+  { key: 'chargerCh', label: 'CH' },
+  { key: 'manager', label: '담당자' },
+  { key: 'phone', label: '연락처' },
+  { key: 'hevManager', label: 'H.EV 담당자', aliases: ['hevManager', 'HEV 담당자', 'H EV 담당자'] },
+  { key: 'requestDate', label: '신청일자' },
+  { key: 'inspectDate', label: '검사예정일', aliases: ['검사일정'] },
+  { key: 'inspectTime', label: '검사시간', aliases: ['시간'] },
+  { key: 'result', label: '검사결과', aliases: ['결과'] },
+  { key: 'certificateDate', label: '필증수령일' },
+  { key: 'memo', label: '메모' },
+  { key: 'completedAt', label: '완료일자' }
 ];
 
-const STATION_HEADERS = [
-  'name',
-  'no',
-  'road',
-  'jibun',
-  'addr',
-  'region',
-  'city',
-  'op',
-  'kind',
-  'indoor',
-  'slow7',
-  'fast53',
-  'ultra105'
+const STATION_FIELDS = [
+  { key: 'name', label: 'name' },
+  { key: 'no', label: 'no' },
+  { key: 'road', label: 'road' },
+  { key: 'jibun', label: 'jibun' },
+  { key: 'addr', label: 'addr' },
+  { key: 'region', label: 'region' },
+  { key: 'city', label: 'city' },
+  { key: 'op', label: 'op' },
+  { key: 'kind', label: 'kind' },
+  { key: 'indoor', label: 'indoor' },
+  { key: 'slow7', label: 'slow7' },
+  { key: 'fast53', label: 'fast53' },
+  { key: 'ultra105', label: 'ultra105' }
 ];
 
 function doGet(e) {
@@ -62,10 +62,10 @@ function doGet(e) {
     '<title>검사 일정 관리자</title>' +
     '<style>body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f6f8fb;color:#172033;display:grid;place-items:center;min-height:100vh}.box{background:#fff;border:1px solid #d9e2ef;border-radius:14px;padding:28px;max-width:560px;box-shadow:0 12px 30px rgba(15,23,42,.08)}a{display:inline-block;margin-top:16px;background:#2563eb;color:#fff;text-decoration:none;border-radius:10px;padding:11px 14px;font-weight:700}.muted{color:#64748b;font-size:14px;line-height:1.6}.url{word-break:break-all;background:#f8fafc;border:1px solid #d9e2ef;border-radius:10px;padding:10px 12px;font-size:13px}</style>' +
     '</head><body><div class="box"><h1>검사 일정 관리자</h1>' +
-    '<p class="muted">이 주소는 Google Sheets 저장을 담당하는 Apps Script API 주소입니다. 실제 사용 화면은 아래 웹앱 주소로 접속하세요.</p>' +
+    '<p class="muted">이 주소는 Google Sheets 저장을 담당하는 Apps Script API 주소입니다. 실제 사용 화면은 아래 GitHub Pages 주소로 접속하세요.</p>' +
     '<p class="url">' + FRONTEND_URL + '</p>' +
     '<a href="' + FRONTEND_URL + '">웹앱 열기</a>' +
-    '<p class="muted">이 안내 페이지가 열리지 않는 환경에서는 위 주소를 복사해 크롬/엣지 주소창에 직접 붙여넣어 주세요.</p>' +
+    '<p class="muted">안내 페이지가 열리지 않는 환경에서는 위 주소를 복사해 브라우저 주소창에 직접 붙여넣어 주세요.</p>' +
     '</div></body></html>'
   ).setTitle('검사 일정 관리자');
 }
@@ -94,7 +94,7 @@ function doPost(e) {
       return json_({ ok: true, data: { savedAt: new Date().toISOString(), summary: getStateSummary_() } });
     }
 
-    throw new Error('Unsupported action: ' + payload.action);
+    throw new Error('지원하지 않는 작업입니다: ' + payload.action);
   } catch (error) {
     return json_({ ok: false, message: error.message });
   }
@@ -166,10 +166,10 @@ function json_(data) {
 
 function loadState_() {
   return {
-    targets: readObjects_(SHEETS.targets, BUSINESS_HEADERS),
-    schedules: readObjects_(SHEETS.schedules, BUSINESS_HEADERS),
-    completed: readObjects_(SHEETS.completed, BUSINESS_HEADERS),
-    stationDb: readObjects_(SHEETS.stationDb, STATION_HEADERS)
+    targets: readObjects_(SHEETS.targets, BUSINESS_FIELDS),
+    schedules: readObjects_(SHEETS.schedules, BUSINESS_FIELDS),
+    completed: readObjects_(SHEETS.completed, BUSINESS_FIELDS),
+    stationDb: readObjects_(SHEETS.stationDb, STATION_FIELDS)
   };
 }
 
@@ -184,12 +184,12 @@ function getStateSummary_() {
 }
 
 function saveState_(state) {
-  writeObjects_(SHEETS.targets, BUSINESS_HEADERS, state.targets || []);
-  writeObjects_(SHEETS.schedules, BUSINESS_HEADERS, state.schedules || []);
-  writeObjects_(SHEETS.completed, BUSINESS_HEADERS, state.completed || []);
+  writeObjects_(SHEETS.targets, BUSINESS_FIELDS, state.targets || []);
+  writeObjects_(SHEETS.schedules, BUSINESS_FIELDS, state.schedules || []);
+  writeObjects_(SHEETS.completed, BUSINESS_FIELDS, state.completed || []);
 
   if (Array.isArray(state.stationDb)) {
-    writeObjects_(SHEETS.stationDb, STATION_HEADERS, state.stationDb);
+    writeObjects_(SHEETS.stationDb, STATION_FIELDS, state.stationDb);
   }
 }
 
@@ -198,12 +198,13 @@ function saveStationDb_(stationDb) {
     throw new Error('stationDb must be an array.');
   }
 
-  writeObjects_(SHEETS.stationDb, STATION_HEADERS, stationDb);
+  writeObjects_(SHEETS.stationDb, STATION_FIELDS, stationDb);
 }
 
-function readObjects_(sheetName, headers) {
-  const sheet = ensureSheet_(sheetName, headers);
+function readObjects_(sheetName, fields) {
+  const sheet = ensureSheet_(sheetName, fields);
   const lastRow = sheet.getLastRow();
+  const headers = getHeaderRow_(sheet, fields);
 
   if (lastRow < 2) {
     return [];
@@ -213,11 +214,12 @@ function readObjects_(sheetName, headers) {
     .getRange(2, 1, lastRow - 1, headers.length)
     .getValues()
     .filter((row) => row.some((value) => value !== ''))
-    .map((row) => rowToObject_(headers, row));
+    .map((row) => rowToObject_(fields, headers, row));
 }
 
-function writeObjects_(sheetName, headers, rows) {
-  const sheet = ensureSheet_(sheetName, headers);
+function writeObjects_(sheetName, fields, rows) {
+  const sheet = ensureSheet_(sheetName, fields);
+  const headers = getHeaderRow_(sheet, fields);
   const lastRow = sheet.getLastRow();
 
   if (lastRow > 1) {
@@ -228,11 +230,15 @@ function writeObjects_(sheetName, headers, rows) {
     return;
   }
 
-  const values = rows.map((row) => headers.map((header) => cleanValue_(row[header])));
+  const values = rows.map((row) => headers.map((header) => {
+    const field = findFieldByHeader_(fields, header);
+    return field ? cleanValue_(row[field.key]) : '';
+  }));
+
   sheet.getRange(2, 1, values.length, headers.length).setValues(values);
 }
 
-function ensureSheet_(sheetName, headers) {
+function ensureSheet_(sheetName, fields) {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName(sheetName);
 
@@ -240,18 +246,78 @@ function ensureSheet_(sheetName, headers) {
     sheet = spreadsheet.insertSheet(sheetName);
   }
 
-  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  let headers = getHeaderRow_(sheet, fields);
+  let changed = false;
+
+  fields.forEach((field) => {
+    const index = findHeaderIndex_(headers, getFieldAliases_(field));
+
+    if (index === -1) {
+      headers.push(field.label);
+      changed = true;
+      return;
+    }
+
+    if (headers[index] !== field.label) {
+      headers[index] = field.label;
+      changed = true;
+    }
+  });
+
+  if (!headers.length) {
+    headers = fields.map((field) => field.label);
+    changed = true;
+  }
+
+  if (changed) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  }
+
   return sheet;
 }
 
-function rowToObject_(headers, row) {
-  return headers.reduce((object, header, index) => {
-    const value = row[index];
-    object[header] = value instanceof Date
+function getHeaderRow_(sheet, fields) {
+  const width = Math.max(sheet.getLastColumn(), fields.length);
+
+  if (!width) {
+    return [];
+  }
+
+  const headers = sheet.getRange(1, 1, 1, width).getValues()[0].map((value) => String(value || '').trim());
+
+  while (headers.length && headers[headers.length - 1] === '') {
+    headers.pop();
+  }
+
+  return headers;
+}
+
+function rowToObject_(fields, headers, row) {
+  return fields.reduce((object, field) => {
+    const index = findHeaderIndex_(headers, getFieldAliases_(field));
+    const value = index >= 0 ? row[index] : '';
+    object[field.key] = value instanceof Date
       ? Utilities.formatDate(value, Session.getScriptTimeZone(), 'yyyy-MM-dd')
       : value;
     return object;
   }, {});
+}
+
+function findFieldByHeader_(fields, header) {
+  return fields.find((field) => getFieldAliases_(field).some((alias) => normalizeHeader_(alias) === normalizeHeader_(header)));
+}
+
+function findHeaderIndex_(headers, aliases) {
+  const normalizedAliases = aliases.map(normalizeHeader_);
+  return headers.findIndex((header) => normalizedAliases.includes(normalizeHeader_(header)));
+}
+
+function getFieldAliases_(field) {
+  return [field.key, field.label].concat(field.aliases || []);
+}
+
+function normalizeHeader_(value) {
+  return String(value || '').trim().toLowerCase().replace(/[\s._\-()]/g, '');
 }
 
 function cleanValue_(value) {
