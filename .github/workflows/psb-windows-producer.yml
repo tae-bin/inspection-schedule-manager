@@ -52,6 +52,18 @@ jobs:
           $aes.Decrypt($iv,$cipher,$tag,$plain,$null)
           [IO.File]::WriteAllBytes("$env:RUNNER_TEMP\producer_input.zip",$plain)
           Expand-Archive "$env:RUNNER_TEMP\producer_input.zip" "$env:RUNNER_TEMP\input" -Force
+      - name: Recover immutable source from candidate
+        shell: pwsh
+        run: |
+          $in="$env:RUNNER_TEMP\input\psb_producer_input"
+          $cand="$in\Personal_Second_Brain_PHASE1_WINDOWS_USER_PACKAGE_BUILD_BLOCKED_CANDIDATE_20260823.zip"
+          $tmp="$env:RUNNER_TEMP\candidate_for_source"
+          Expand-Archive $cand $tmp -Force
+          $src=Get-ChildItem $tmp -Recurse -File -Filter 'Personal_Second_Brain_PHASE1_WINDOWS_LOCAL_CORE_CHECKPOINT_20260823.zip' | Select-Object -First 1
+          if(-not $src){throw 'Embedded immutable source checkpoint not found'}
+          Copy-Item $src.FullName "$in\Personal_Second_Brain_PHASE1_WINDOWS_LOCAL_CORE_CHECKPOINT_20260823.zip" -Force
+          $got=(Get-FileHash -Algorithm SHA256 "$in\Personal_Second_Brain_PHASE1_WINDOWS_LOCAL_CORE_CHECKPOINT_20260823.zip").Hash.ToLower()
+          if($got -ne '820ce103435fbfac1315aba3a41c4a54a4c48adb161e06182851616368bbd5dc'){throw 'SOURCE BASELINE MISMATCH'}
       - name: Prepare producer prerequisites
         shell: pwsh
         run: |
