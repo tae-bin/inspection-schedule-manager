@@ -1,0 +1,87 @@
+name: PSB Windows Producer
+on:
+  push:
+    branches: [psb-windows-producer-20260824]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Generate one-time RSA key
+        shell: pwsh
+        run: |
+          $rsa=[System.Security.Cryptography.RSA]::Create(4096)
+          [IO.File]::WriteAllText("$env:RUNNER_TEMP\public.pem",$rsa.ExportSubjectPublicKeyInfoPem())
+          [IO.File]::WriteAllText("$env:RUNNER_TEMP\private.pem",$rsa.ExportPkcs8PrivateKeyPem())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: psb-one-time-public-key
+          path: ${{ runner.temp }}\public.pem
+          retention-days: 1
+      - name: Wait for encrypted producer payload
+        shell: pwsh
+        run: |
+          $branch='psb-windows-producer-20260824'
+          $repo='${{ github.repository }}'
+          $deadline=(Get-Date).AddMinutes(12)
+          do {
+            try {
+              $base="https://raw.githubusercontent.com/$repo/$branch/.psb-producer"
+              Invoke-WebRequest "$base/payload.enc" -OutFile "$env:RUNNER_TEMP\payload.enc" -ErrorAction Stop
+              Invoke-WebRequest "$base/key.enc" -OutFile "$env:RUNNER_TEMP\key.enc" -ErrorAction Stop
+              Invoke-WebRequest "$base/iv.txt" -OutFile "$env:RUNNER_TEMP\iv.txt" -ErrorAction Stop
+              Invoke-WebRequest "$base/tag.txt" -OutFile "$env:RUNNER_TEMP\tag.txt" -ErrorAction Stop
+              $ok=$true
+            } catch { $ok=$false; Start-Sleep -Seconds 10 }
+          } while(-not $ok -and (Get-Date) -lt $deadline)
+          if(-not $ok){throw 'Encrypted producer payload was not supplied in time.'}
+      - name: Decrypt payload in runner temp
+        shell: pwsh
+        run: |
+          $rsa=[System.Security.Cryptography.RSA]::Create()
+          $rsa.ImportFromPem([IO.File]::ReadAllText("$env:RUNNER_TEMP\private.pem"))
+          $aesKey=$rsa.Decrypt([IO.File]::ReadAllBytes("$env:RUNNER_TEMP\key.enc"),[System.Security.Cryptography.RSAEncryptionPadding]::OaepSHA256)
+          $iv=[Convert]::FromBase64String((Get-Content -Raw "$env:RUNNER_TEMP\iv.txt").Trim())
+          $tag=[Convert]::FromBase64String((Get-Content -Raw "$env:RUNNER_TEMP\tag.txt").Trim())
+          $cipher=[IO.File]::ReadAllBytes("$env:RUNNER_TEMP\payload.enc")
+          $plain=New-Object byte[] $cipher.Length
+          $aes=[System.Security.Cryptography.AesGcm]::new($aesKey,16)
+          $aes.Decrypt($iv,$cipher,$tag,$plain,$null)
+          [IO.File]::WriteAllBytes("$env:RUNNER_TEMP\producer_input.zip",$plain)
+          Expand-Archive "$env:RUNNER_TEMP\producer_input.zip" "$env:RUNNER_TEMP\input" -Force
+      - name: Prepare producer prerequisites
+        shell: pwsh
+        run: |
+          python --version
+          node --version
+          npm --version
+          rustc --version
+          cargo --version
+          choco install tesseract --yes --no-progress
+      - name: Build verified Windows package
+        shell: pwsh
+        run: |
+          $in="$env:RUNNER_TEMP\input\psb_producer_input"
+          & "$in\overlay\producer_build.ps1" -CheckpointZip "$in\Personal_Second_Brain_PHASE1_WINDOWS_LOCAL_CORE_CHECKPOINT_20260823.zip" -PackagingCandidateZip "$in\Personal_Second_Brain_PHASE1_WINDOWS_USER_PACKAGE_BUILD_BLOCKED_CANDIDATE_20260823.zip" -OverlayDir "$in\overlay" -OutDir "$env:RUNNER_TEMP\out"
+      - name: Encrypt build outputs for return
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "$env:RUNNER_TEMP\out\*" -DestinationPath "$env:RUNNER_TEMP\out.zip" -CompressionLevel Optimal
+          $returnKey=[IO.File]::ReadAllBytes("$env:RUNNER_TEMP\input\psb_producer_input\return_key.bin")
+          $nonce=New-Object byte[] 12; [Security.Cryptography.RandomNumberGenerator]::Fill($nonce)
+          $plain=[IO.File]::ReadAllBytes("$env:RUNNER_TEMP\out.zip");$cipher=New-Object byte[] $plain.Length;$tag=New-Object byte[] 16
+          $aes=[Security.Cryptography.AesGcm]::new($returnKey,16);$aes.Encrypt($nonce,$plain,$cipher,$tag,$null)
+          [IO.File]::WriteAllBytes("$env:RUNNER_TEMP\psb-output.enc",$cipher)
+          [IO.File]::WriteAllText("$env:RUNNER_TEMP\psb-output-nonce.txt",[Convert]::ToBase64String($nonce))
+          [IO.File]::WriteAllText("$env:RUNNER_TEMP\psb-output-tag.txt",[Convert]::ToBase64String($tag))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: psb-encrypted-windows-output
+          path: |
+            ${{ runner.temp }}\psb-output.enc
+            ${{ runner.temp }}\psb-output-nonce.txt
+            ${{ runner.temp }}\psb-output-tag.txt
+          retention-days: 1
