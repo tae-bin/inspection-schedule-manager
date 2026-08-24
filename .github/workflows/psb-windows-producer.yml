@@ -1,7 +1,7 @@
 name: PSB Windows Producer
 on:
-  push:
-    branches: [psb-windows-producer-20260824]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
