@@ -30,12 +30,24 @@ jobs:
           do {
             try {
               $base="https://raw.githubusercontent.com/$repo/$branch/.psb-producer"
-              Invoke-WebRequest "$base/payload.enc" -OutFile "$env:RUNNER_TEMP\payload.enc" -ErrorAction Stop
+              Invoke-WebRequest "$base/manifest.json" -OutFile "$env:RUNNER_TEMP\payload-manifest.json" -ErrorAction Stop
+              $m=Get-Content -Raw "$env:RUNNER_TEMP\payload-manifest.json" | ConvertFrom-Json
+              $out=[IO.File]::Open("$env:RUNNER_TEMP\payload.enc",[IO.FileMode]::Create,[IO.FileAccess]::Write)
+              try {
+                for($i=0;$i -lt [int]$m.chunk_count;$i++){
+                  $name=('{0:D3}.part' -f $i)
+                  $part="$env:RUNNER_TEMP\$name"
+                  Invoke-WebRequest "$base/chunks/$name" -OutFile $part -ErrorAction Stop
+                  $b=[IO.File]::ReadAllBytes($part);$out.Write($b,0,$b.Length)
+                }
+              } finally { $out.Dispose() }
+              $got=(Get-FileHash -Algorithm SHA256 "$env:RUNNER_TEMP\payload.enc").Hash.ToLower()
+              if($got -ne [string]$m.payload_sha256){throw 'Encrypted payload SHA mismatch'}
               Invoke-WebRequest "$base/key.enc" -OutFile "$env:RUNNER_TEMP\key.enc" -ErrorAction Stop
               Invoke-WebRequest "$base/iv.txt" -OutFile "$env:RUNNER_TEMP\iv.txt" -ErrorAction Stop
               Invoke-WebRequest "$base/tag.txt" -OutFile "$env:RUNNER_TEMP\tag.txt" -ErrorAction Stop
               $ok=$true
-            } catch { $ok=$false; Start-Sleep -Seconds 10 }
+            } catch { $ok=$false; Remove-Item "$env:RUNNER_TEMP\payload.enc" -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 10 }
           } while(-not $ok -and (Get-Date) -lt $deadline)
           if(-not $ok){throw 'Encrypted producer payload was not supplied in time.'}
       - name: Decrypt payload in runner temp
