@@ -15,7 +15,7 @@
 body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
 header{padding:22px 26px;background:linear-gradient(120deg,#1e40af,#2563eb);color:#fff}
 header h1{margin:0;font-size:24px}
-header p{margin:8px 0 0;color:#dbeafe;font-size:14px}
+header p{margin:8px 0 0;color:#dbeafe;font-size:14px}.version-badge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:800}
 main.app-layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:22px;padding:22px;max-width:none;margin:0}.content-pane{min-width:0}.side-nav{align-self:start;position:sticky;top:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(15,23,42,.06);padding:18px}
 .card h2{font-size:17px;margin:0 0 12px}.card h3{font-size:15px;margin:0 0 10px}
@@ -40,15 +40,40 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
 
 .dashboard{margin-top:16px}.dashboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}.dashboard-tools{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.dash-control{min-width:160px}.dash-metrics{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:10px;margin:12px 0}.dash-metric{border:1px solid var(--line);background:#f8fafc;border-radius:14px;padding:12px}.dash-metric b{display:block;font-size:22px;margin-top:4px}.dash-metric.overdue{background:#fff7ed;border-color:#fed7aa}.dash-metric.today{background:#eff6ff;border-color:#bfdbfe}.dash-metric.week{background:#f0fdf4;border-color:#bbf7d0}.dash-metric.nodate{background:#f1f5f9;border-color:#cbd5e1}.dash-metric span{font-size:12px;color:var(--muted)}.dash-table table{min-width:1150px}.dash-table td{font-size:13px}.dash-table tr.overdue-row td{background:#fff7ed}.dash-table tr.today-row td{background:#eff6ff}.dash-table tr.soon-row td{background:#f0fdf4}.dash-empty{border:1px dashed var(--line);border-radius:14px;padding:18px;text-align:center;color:var(--muted);background:#fff}.dash-date{font-weight:800}.dash-actions button{padding:7px 10px;font-size:12px}.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:6px}.status-dot.overdue{background:#f97316}.status-dot.today{background:#2563eb}.status-dot.soon{background:#16a34a}.status-dot.normal{background:#64748b}
 
+.access-panel{max-width:760px;margin:18px auto;padding:0 18px}.access-card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(15,23,42,.08);padding:18px}.access-tabs{display:flex;gap:8px;margin:12px 0}.access-tabs button{flex:1}.access-status{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px;padding:10px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px}.admin-only-hidden,.desc-hidden{display:none!important}.user-only{display:none!important}body.user-mode .user-only{display:block!important}body.user-mode .side-nav,body.user-mode #targetsSection,body.user-mode #schedulesSection,body.user-mode #completedSection,body.user-mode .dash-control,body.user-mode #dashboardTableWrap,body.user-mode #dashboardEmpty{display:none!important}body.user-mode .dashboard{max-width:760px;margin:16px auto}body.user-mode .dashboard-tools{border-top:0}.feature-check{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534;border-radius:12px;padding:10px 12px;margin:10px 0 0;font-size:13px}.summary-table{width:100%;min-width:420px}.summary-table th,.summary-table td{text-align:center}.summary-table th:first-child,.summary-table td:first-child{text-align:left}.admin-box{border:1px dashed var(--line);border-radius:14px;padding:12px;margin-top:12px;background:#f8fafc}.manager-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.manager-chip{display:inline-flex;gap:6px;align-items:center;background:#e2e8f0;border-radius:999px;padding:5px 8px;font-size:12px}.manager-chip button{padding:2px 6px;border-radius:999px;font-size:11px}.target.sticky-address th,.target.sticky-address td{white-space:nowrap}.target.sticky-address .checkcell{width:28px;min-width:28px;max-width:28px;padding-left:4px;padding-right:4px}.target.sticky-address .checkcell input{width:14px;height:14px}.target.sticky-address th:nth-child(-n+6),.target.sticky-address td:nth-child(-n+6){position:sticky;background:#fff;z-index:2}.target.sticky-address th:nth-child(-n+6){background:#f1f5f9;z-index:4}.target.sticky-address th:nth-child(1),.target.sticky-address td:nth-child(1){left:0}.target.sticky-address th:nth-child(2),.target.sticky-address td:nth-child(2){left:28px}.target.sticky-address th:nth-child(3),.target.sticky-address td:nth-child(3){left:128px}.target.sticky-address th:nth-child(4),.target.sticky-address td:nth-child(4){left:238px}.target.sticky-address th:nth-child(5),.target.sticky-address td:nth-child(5){left:438px}.target.sticky-address th:nth-child(6),.target.sticky-address td:nth-child(6){left:548px;box-shadow:4px 0 8px rgba(15,23,42,.08)}.target.sticky-address th:nth-child(2),.target.sticky-address td:nth-child(2){min-width:100px}.target.sticky-address th:nth-child(3),.target.sticky-address td:nth-child(3){min-width:110px}.target.sticky-address th:nth-child(4),.target.sticky-address td:nth-child(4){min-width:200px}.target.sticky-address th:nth-child(5),.target.sticky-address td:nth-child(5){min-width:110px}.target.sticky-address th:nth-child(6),.target.sticky-address td:nth-child(6){min-width:300px}.target.sticky-address tr:hover td:nth-child(-n+6){background:#fafcff}
+
 @media (max-width:1100px){main.app-layout{grid-template-columns:1fr}.side-nav{position:static}.stagebar{flex-direction:row;flex-wrap:wrap;margin-bottom:16px}.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}.kpis,.dash-metrics{grid-template-columns:repeat(2,1fr)}.stagebtn{min-width:calc(50% - 5px);max-width:none;flex:1 1 calc(50% - 5px)}}@media (max-width:720px){main.app-layout{padding:14px}.stagebtn{min-width:100%;flex-basis:100%}.kpis,.dash-metrics{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
   <h1>검사 일정 관리 웹페이지</h1>
-  <p>대상지_리스트 → 검사 일정 → 완료 순서로 관리합니다. 검색/다중 선택, 관리번호 묶음, 충전기 종류별 필증 관리, 엑셀 백업/복원을 지원합니다.</p>
+  <p>대상지_리스트 → 검사 일정 → 완료 순서로 관리합니다. 이메일 기반 접근 코드, 권한별 도구 표시, HEV담당자 배정을 지원합니다. <span class="version-badge">로그인 적용 버전</span></p>
 </header>
-<main class="app-layout">
+<section id="accessPanel" class="access-panel">
+  <div class="access-card">
+    <h2>접근 코드 입력</h2>
+    <p class="muted">관리자에게 이메일을 알려주고 공유받은 접근 코드를 입력하세요. 관리자는 아래 관리자 탭에서 이메일별 이용자 코드를 만들 수 있습니다.</p>
+    <div class="access-tabs">
+      <button id="userLoginTab" class="secondary" type="button">이용자 로그인</button>
+      <button id="adminLoginTab" class="secondary" type="button">관리자 로그인</button>
+    </div>
+    <div id="userLoginBox">
+      <label for="loginEmail">이메일</label>
+      <input id="loginEmail" type="email" placeholder="예: user@example.com" autocomplete="email" />
+      <label for="loginCode">공유받은 접근 코드</label>
+      <input id="loginCode" placeholder="관리자가 알려준 코드 붙여넣기" />
+      <div class="btnrow" style="margin-top:12px"><button id="loginUser" type="button">이용자로 시작</button></div>
+    </div>
+    <div id="adminLoginBox" class="hidden">
+      <label for="adminCode">관리자 코드</label>
+      <input id="adminCode" placeholder="관리자 전용 코드 입력" />
+      <div class="btnrow" style="margin-top:12px"><button id="loginAdmin" type="button">관리자로 시작</button></div>
+      <p class="muted small">처음 관리자 코드는 <b>ADMIN-HEV-2026</b> 입니다. 배포 전 코드에서 원하는 값으로 바꿀 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+<main class="app-layout hidden" id="appMain">
   <aside class="side-nav">
     <div class="stagebar">
       <button class="stagebtn active" data-stage="targets"><b>1. 대상지_리스트</b><span>충전소 검색 후 대상지 등록</span></button>
@@ -57,6 +82,10 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
     </div>
   </aside>
   <div class="content-pane">
+  <div id="accessStatus" class="access-status hidden">
+    <div><b id="roleLabel">이용자</b> · <span id="emailLabel"></span></div>
+    <button id="logoutAccess" class="secondary" type="button">로그아웃</button>
+  </div>
 
   <section class="card dashboard" id="mainDashboard">
     <div class="dashboard-head">
@@ -75,39 +104,53 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
       </div>
     </div>
 
-    <div class="kpis" style="margin-top:14px">
-      <div class="kpi"><span class="label">대상지_리스트</span><b id="kpiTargets">0</b></div>
-      <div class="kpi"><span class="label">검사 일정</span><b id="kpiSchedules">0</b></div>
-      <div class="kpi"><span class="label">완료</span><b id="kpiCompleted">0</b></div>
-      <div class="dash-metric overdue"><span>검사일 경과</span><b id="dashOverdue">0</b></div>
-      <div class="dash-metric today"><span>오늘 검사</span><b id="dashToday">0</b></div>
-      <div class="dash-metric week"><span>7일 이내 예정</span><b id="dashWeek">0</b></div>
-      <div class="dash-metric nodate"><span>일정 미입력</span><b id="dashNoDate">0</b></div>
+    <div class="tablewrap" style="margin-top:14px">
+      <table class="summary-table">
+        <thead><tr><th>구분</th><th>대상지_리스트</th><th>검사 일정</th><th>완료</th></tr></thead>
+        <tbody><tr><td><b>현재 건수</b></td><td id="kpiTargets">0</td><td id="kpiSchedules">0</td><td id="kpiCompleted">0</td></tr></tbody>
+      </table>
     </div>
 
     <div class="dashboard-tools">
       <div class="btnrow">
         <button id="exportExcel" class="secondary">엑셀 백업</button>
-        <label class="filelabel">엑셀 복원 <input id="importExcel" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden"></label>
-        <label class="filelabel">충전소목록 최신화 <input id="importStationDb" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden"></label>
-        <button id="resetStationDb" class="secondary">충전소DB 기본값 복원</button>
-        <button id="exportCsv" class="secondary">현재 목록 CSV</button>
-        <button id="exportJson" class="secondary">JSON 백업</button>
-        <label class="filelabel">JSON 불러오기 <input id="importJson" type="file" accept=".json,application/json" class="hidden"></label>
-        <button id="clearAll" class="danger">전체 삭제</button>
+        <label class="filelabel admin-only">엑셀 복원 <input id="importExcel" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden"></label>
+        <label class="filelabel admin-only">충전소목록 최신화 <input id="importStationDb" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden"></label>
+        <button id="resetStationDb" class="secondary admin-only">충전소DB 기본값 복원</button>
+        <button id="exportCsv" class="secondary admin-only">현재 목록 CSV</button>
+        <button id="exportJson" class="secondary admin-only">JSON 백업</button>
+        <label class="filelabel admin-only">JSON 불러오기 <input id="importJson" type="file" accept=".json,application/json" class="hidden"></label>
+        <button id="clearAll" class="danger admin-only">전체 삭제</button>
       </div>
-      <p class="muted">입력 내용은 이 브라우저의 localStorage에 자동 저장됩니다. 같은 관리번호로 묶인 행은 검사 일정/완료 이동 시 그룹 단위로 함께 이동됩니다.</p>
-      <p class="muted">기본 충전소DB는 업로드된 <b>검사일정_관리_템플릿2.xlsx</b> 기준으로 내장했습니다. 충전소목록 최신화 파일은 엑셀 표(Table)가 적용되어 있지 않아도 되며, 업로드 시 머리글의 <b>도로명 주소</b>를 우선 사용하고 값이 없으면 <b>지번 주소</b>를 주소로 사용합니다.</p>
+      <p class="feature-check user-only"><b>이용자 권한입니다.</b> 이 화면에서는 엑셀 백업만 사용할 수 있고, 복원/최신화/삭제/JSON/CSV/일정 수정 기능은 숨김 처리됩니다.</p>
+      <p class="feature-check admin-only"><b>관리자 권한입니다.</b> 엑셀 백업·복원, 충전소목록 최신화, 충전소DB 기본값 복원, CSV/JSON, 전체삭제, HEV담당자 관리를 모두 사용할 수 있습니다.</p>
+      <div class="btnrow admin-only" style="margin-top:10px"><button id="toggleAdminDescriptions" class="secondary" type="button">설명 숨기기</button></div>
+      <div id="adminDescriptions" class="admin-only">
+        <p class="muted">입력 내용은 이 브라우저의 localStorage에 자동 저장됩니다. 같은 관리번호로 묶인 행은 검사 일정/완료 이동 시 그룹 단위로 함께 이동됩니다.</p>
+        <p class="muted">기본 충전소DB는 업로드된 <b>검사일정_관리_템플릿2.xlsx</b> 기준으로 내장했습니다. 충전소목록 최신화 파일은 엑셀 표(Table)가 적용되어 있지 않아도 되며, 업로드 시 머리글의 <b>도로명 주소</b>를 우선 사용하고 값이 없으면 <b>지번 주소</b>를 주소로 사용합니다.</p>
+      </div>
+      <div class="admin-box admin-only">
+        <h3>이메일 기반 이용자 접근 코드 만들기</h3>
+        <label for="approvalEmail">승인할 이용자 이메일</label>
+        <input id="approvalEmail" type="email" placeholder="예: user@example.com" />
+        <div class="btnrow" style="margin-top:10px"><button id="generateAccessCode" type="button">접근 코드 만들기</button></div>
+        <textarea id="generatedAccessCode" readonly placeholder="생성된 코드를 복사해서 이용자에게 공유하세요." style="margin-top:10px"></textarea>
+      </div>
+      <div class="admin-box admin-only">
+        <h3>HEV담당자 목록 관리</h3>
+        <div class="twoin"><div><label for="hevManagerName">추가할 담당자 이름</label><input id="hevManagerName" placeholder="예: 김HEV" /></div><div style="align-self:end"><button id="addHevManager" type="button">담당자 추가</button></div></div>
+        <div id="hevManagerList" class="manager-list"></div>
+      </div>
     </div>
 
     <div style="margin-top:14px">
       <h3>다가오는 검사일정</h3>
-      <p class="muted" style="margin-top:-4px">검사 일정에 등록된 건 중 예정일이 가까운 순서로 표시합니다. 지연·오늘 검사·7일 이내 건을 우선 확인할 수 있습니다.</p>
+      <p class="muted" style="margin-top:-4px">검사 일정에 등록된 건 중 위 드롭다운 표시 범위에 포함되는 다가오는 일정만 예정일이 가까운 순서로 표시합니다.</p>
     </div>
     <div id="dashboardEmpty" class="dash-empty hidden">다가오는 검사 일정이 없습니다. 검사 일정 탭에서 검사예정일을 입력하면 이곳에 표시됩니다.</div>
     <div class="tablewrap dash-table" id="dashboardTableWrap">
       <table>
-        <thead><tr><th>D-Day</th><th>검사예정일</th><th>시간</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>상태</th><th>메모</th><th>바로가기</th></tr></thead>
+        <thead><tr><th>D-Day</th><th>검사예정일</th><th>시간</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>HEV담당자</th><th>상태</th><th>메모</th><th>바로가기</th></tr></thead>
         <tbody id="dashboardBody"></tbody>
       </table>
     </div>
@@ -159,7 +202,7 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
         <button id="moveCheckedTargets" class="ok">선택 관리번호 검사 일정으로 이동</button>
       </div>
       <div class="tablewrap">
-        <table class="target">
+        <table class="target sticky-address">
           <thead><tr><th class="checkcell"><input id="checkAllTargets" type="checkbox"></th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>메모</th><th>처리</th></tr></thead>
           <tbody id="targetBody"></tbody>
         </table>
@@ -180,8 +223,8 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
         <span class="badge blue">예정/오늘 검사</span><span class="badge warn">검사일 경과</span><span class="badge ok">합격/필증수령완료</span><span class="badge danger">불합격</span>
       </div>
       <div class="tablewrap">
-        <table class="target">
-          <thead><tr><th class="checkcell"><input id="checkAllSchedules" type="checkbox"></th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>신청일자</th><th>검사예정일</th><th>시간</th><th>결과</th><th>필증수령일</th><th>상태</th><th>D-Day</th><th>메모</th><th>처리</th></tr></thead>
+        <table class="target sticky-address">
+          <thead><tr><th class="checkcell"><input id="checkAllSchedules" type="checkbox"></th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>HEV담당자</th><th>신청일자</th><th>검사예정일</th><th>시간</th><th>결과</th><th>필증수령일</th><th>상태</th><th>D-Day</th><th>메모</th><th>처리</th></tr></thead>
           <tbody id="scheduleBody"></tbody>
         </table>
       </div>
@@ -196,7 +239,7 @@ button.warn{background:#b45309}button.warn:hover{background:#92400e}.btnrow{disp
       </div>
       <div class="tablewrap">
         <table class="target">
-          <thead><tr><th>완료일자</th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>신청일자</th><th>검사예정일</th><th>시간</th><th>결과</th><th>필증수령일</th><th>메모</th><th>처리</th></tr></thead>
+          <thead><tr><th>완료일자</th><th>등록일자</th><th>관리번호</th><th>충전소명</th><th>충전소 번호</th><th>주소</th><th>충전기 종류</th><th>CH</th><th>담당자</th><th>연락처</th><th>HEV담당자</th><th>신청일자</th><th>검사예정일</th><th>시간</th><th>결과</th><th>필증수령일</th><th>메모</th><th>처리</th></tr></thead>
           <tbody id="completeBody"></tbody>
         </table>
       </div>
@@ -209,7 +252,14 @@ const DEFAULT_STATION_DB = [{"name":"[TEST] 휴맥스이브이생산용","no":"0
 const STATION_DB_KEY = "hev_station_db_template2_default_v1";
 let STATION_DB = loadStationDB();
 const STORAGE_KEY = "hev_inspection_workflow_v4_grouped_ch_memo_db";
+const ACCESS_SESSION_KEY = "hev_access_session_v1";
+const HEV_MANAGERS_KEY = "hev_manager_list_v1";
+const ADMIN_ACCESS_CODE = "ADMIN-HEV-2026";
 const $ = id => document.getElementById(id);
+let currentRole = "guest";
+let currentEmail = "";
+let adminDescriptionsHidden = false;
+let hevManagers = loadHevManagers();
 let activeStage = "targets";
 let selectedNames = new Set();
 let selectedStations = [];
@@ -221,6 +271,91 @@ function esc(v){ return String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","
 function norm(v){ return String(v ?? "").toLowerCase().replace(/\s+/g,""); }
 function todayISO(){ const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
 function makeId(){ return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,9); }
+function cleanEmail(email){ return String(email || "").trim().toLowerCase(); }
+function simpleHash(text){ let h=2166136261; for(let i=0;i<text.length;i++){ h^=text.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
+function accessCodeForEmail(email){ const clean=cleanEmail(email); return clean ? `HEV-${simpleHash(clean + "|inspection-schedule-manager|2026")}` : ""; }
+function isAdmin(){ return currentRole === "admin"; }
+function loadHevManagers(){
+  try{
+    const raw = localStorage.getItem(HEV_MANAGERS_KEY);
+    if(!raw) return ["미배정"];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) && arr.length ? [...new Set(["미배정", ...arr.map(v=>String(v).trim()).filter(Boolean)])] : ["미배정"];
+  } catch(e){ console.warn(e); return ["미배정"]; }
+}
+function saveHevManagers(){ localStorage.setItem(HEV_MANAGERS_KEY, JSON.stringify(hevManagers)); }
+function managerOptions(selected){
+  const selectedValue = String(selected || "미배정").trim() || "미배정";
+  const list = [...new Set(["미배정", ...hevManagers, selectedValue].filter(Boolean))];
+  return list.map(v=>`<option value="${esc(v)}" ${v===selectedValue?"selected":""}>${esc(v)}</option>`).join("");
+}
+function applyAccessSession(role, email=""){
+  currentRole = role; currentEmail = cleanEmail(email);
+  if(role === "guest") localStorage.removeItem(ACCESS_SESSION_KEY);
+  else localStorage.setItem(ACCESS_SESSION_KEY, JSON.stringify({role, email:currentEmail}));
+  applyPermissions();
+}
+function resetAccessFromUrl(){
+  const params = new URLSearchParams(location.search);
+  if(!params.has("logout") && !params.has("resetAccess")) return;
+  localStorage.removeItem(ACCESS_SESSION_KEY);
+  currentRole = "guest"; currentEmail = "";
+  params.delete("logout"); params.delete("resetAccess");
+  const nextUrl = location.pathname + (params.toString() ? `?${params}` : "") + location.hash;
+  history.replaceState(null, "", nextUrl);
+}
+function loadAccessSession(){
+  resetAccessFromUrl();
+  try{
+    const raw = localStorage.getItem(ACCESS_SESSION_KEY);
+    if(!raw){ applyPermissions(); return; }
+    const session = JSON.parse(raw);
+    currentRole = session.role === "admin" ? "admin" : "user";
+    currentEmail = cleanEmail(session.email || "");
+  } catch(e){ console.warn(e); currentRole="guest"; currentEmail=""; }
+  applyPermissions();
+}
+function applyPermissions(){
+  const loggedIn = currentRole !== "guest";
+  document.body.classList.toggle("admin-mode", isAdmin());
+  document.body.classList.toggle("user-mode", currentRole === "user");
+  document.body.classList.toggle("guest-mode", !loggedIn);
+  if($("accessPanel")) $("accessPanel").classList.toggle("hidden", loggedIn);
+  if($("appMain")) $("appMain").classList.toggle("hidden", !loggedIn);
+  if($("accessStatus")) $("accessStatus").classList.toggle("hidden", !loggedIn);
+  if($("roleLabel")) $("roleLabel").textContent = isAdmin() ? "관리자" : "이용자";
+  if($("emailLabel")) $("emailLabel").textContent = currentEmail || (isAdmin() ? "관리자 권한" : "");
+  document.querySelectorAll(".admin-only").forEach(el=>el.classList.toggle("admin-only-hidden", !isAdmin()));
+  if($("adminDescriptions")) $("adminDescriptions").classList.toggle("desc-hidden", adminDescriptionsHidden);
+  if($("toggleAdminDescriptions")) $("toggleAdminDescriptions").textContent = adminDescriptionsHidden ? "설명 숨기기 취소" : "설명 숨기기";
+  renderHevManagerList();
+}
+function renderHevManagerList(){
+  const box = $("hevManagerList"); if(!box) return;
+  box.innerHTML = hevManagers.map(v=>`<span class="manager-chip">${esc(v)}${v==="미배정"?"":` <button class="danger removeHevManager" data-name="${esc(v)}" type="button">삭제</button>`}</span>`).join("");
+}
+function addHevManager(){
+  const input = $("hevManagerName"); const name = String(input?.value || "").trim();
+  if(!name){ alert("추가할 HEV담당자 이름을 입력하세요."); return; }
+  if(!hevManagers.includes(name)) hevManagers.push(name);
+  saveHevManagers(); if(input) input.value=""; renderHevManagerList(); renderSchedules();
+}
+function removePastedDiffArtifacts(){
+  // GitHub/Git diff 화면에서 보이는 +, -, diff --git 줄을 HTML에 함께 붙여넣으면
+  // 브라우저 화면에 기호가 텍스트처럼 떠다닙니다. 가능한 범위에서 그런 텍스트 노드만 제거합니다.
+  const markerLine = /^\s*(diff --git|index [0-9a-f]{7,}|---\s+a\/|\+\+\+\s+b\/|@@\s+-\d+)/i;
+  const onlyDiffMarks = text => String(text || "").split("\n").every(line=>{
+    const t = line.trim();
+    return !t || t === "+" || t === "-" || markerLine.test(t);
+  });
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const remove = [];
+  while(walker.nextNode()){
+    const node = walker.currentNode;
+    if(onlyDiffMarks(node.textContent)) remove.push(node);
+  }
+  remove.forEach(node=>node.remove());
+}
 function firstNonEmpty(){
   for(const v of arguments){
     const s = String(v ?? "").trim();
@@ -302,10 +437,10 @@ function chargerRowsFromStation(s){
   return rows.length ? rows : [{key:"", label:"미입력", ch:0}];
 }
 function splitRecordByChargerType(r){
-  if(r.chargerType) { r.chargerCh = countNum(r.chargerCh); return [r]; }
+  if(r.chargerType) { r.chargerCh = countNum(r.chargerCh); r.hevManager = r.hevManager || "미배정"; return [r]; }
   const rows = CHARGER_TYPES.map(t=>({key:t.key, label:t.label, ch:countNum(r[t.key])})).filter(x=>x.ch>0);
   const types = rows.length ? rows : [{key:"", label:"미입력", ch:0}];
-  return types.map((t,idx)=>({...r, id: idx===0 ? (r.id||makeId()) : makeId(), chargerType:t.label, chargerCh:t.ch, ...typeCounts(t.key,t.ch)}));
+  return types.map((t,idx)=>({...r, hevManager:r.hevManager||"미배정", id: idx===0 ? (r.id||makeId()) : makeId(), chargerType:t.label, chargerCh:t.ch, ...typeCounts(t.key,t.ch)}));
 }
 function migrateRecordArray(arr){ return (Array.isArray(arr)?arr:[]).flatMap(splitRecordByChargerType); }
 const GROUP_SYNC_FIELDS = new Set(["manager","phone","memo","requestDate","inspectDate","inspectTime"]);
@@ -337,16 +472,8 @@ function renderUpcomingDashboard(){
   const horizonValue = $("dashboardHorizon") ? $("dashboardHorizon").value : "14";
   const maxDays = horizonValue === "all" ? 999999 : Number(horizonValue || 14);
   const rowsWithDiff = schedules.map((r,i)=>({...r,index:i,diff:diffDaysFromToday(r.inspectDate),status:statusOf(r)}));
-  const overdue = rowsWithDiff.filter(r=>r.diff !== null && r.diff < 0 && !["합격","필증수령완료","완료"].includes(r.status)).length;
-  const today = rowsWithDiff.filter(r=>r.diff === 0).length;
-  const week = rowsWithDiff.filter(r=>r.diff !== null && r.diff >= 0 && r.diff <= 7).length;
-  const nodate = rowsWithDiff.filter(r=>!r.inspectDate).length;
-  $("dashOverdue").textContent = overdue;
-  $("dashToday").textContent = today;
-  $("dashWeek").textContent = week;
-  $("dashNoDate").textContent = nodate;
   const visible = rowsWithDiff
-    .filter(r=>r.inspectDate && (r.diff < 0 || r.diff <= maxDays))
+    .filter(r=>r.inspectDate && r.diff !== null && r.diff >= 0 && r.diff <= maxDays)
     .sort((a,b)=> (a.diff-b.diff) || String(a.inspectTime||"").localeCompare(String(b.inspectTime||"")) || String(a.serial||"").localeCompare(String(b.serial||""),"ko") || String(a.name||"").localeCompare(String(b.name||""),"ko"));
   $("dashboardEmpty").classList.toggle("hidden", visible.length>0);
   $("dashboardTableWrap").classList.toggle("hidden", visible.length===0);
@@ -354,7 +481,7 @@ function renderUpcomingDashboard(){
     const cls = r.diff < 0 ? "overdue-row" : r.diff === 0 ? "today-row" : r.diff <= 7 ? "soon-row" : "";
     const dot = r.diff < 0 ? "overdue" : r.diff === 0 ? "today" : r.diff <= 7 ? "soon" : "normal";
     const dday = ddayText(r.inspectDate);
-    return `<tr class="${cls}"><td><span class="status-dot ${dot}"></span><b>${esc(dday)}</b></td><td class="dash-date">${esc(r.inspectDate)}</td><td>${esc(r.inspectTime||"-")}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td>${esc(r.chargerType||"미입력")}</td><td>${countNum(r.chargerCh)}</td><td>${esc(r.manager||"-")}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td><td>${esc(r.memo||"")}</td><td class="dash-actions"><button class="secondary dashGo" data-filter="${esc(r.serial||r.name||"")}">일정 보기</button></td></tr>`;
+    return `<tr class="${cls}"><td><span class="status-dot ${dot}"></span><b>${esc(dday)}</b></td><td class="dash-date">${esc(r.inspectDate)}</td><td>${esc(r.inspectTime||"-")}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td>${esc(r.chargerType||"미입력")}</td><td>${countNum(r.chargerCh)}</td><td>${esc(r.manager||"-")}</td><td>${esc(r.hevManager||"미배정")}</td><td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td><td>${esc(r.memo||"")}</td><td class="dash-actions"><button class="secondary dashGo" data-filter="${esc(r.serial||r.name||"")}">일정 보기</button></td></tr>`;
   }).join("");
 }
 function byNameGroups(q){
@@ -394,14 +521,14 @@ function addSelected(){
   let addedRows = 0;
   selectedStations.forEach(s=>{
     chargerRowsFromStation(s).forEach(t=>{
-      targets.push({id:makeId(), groupId, regDate, serial, name:s.name, no:String(s.no||""), address:finalAddress(s), chargerType:t.label, chargerCh:countNum(t.ch), ...typeCounts(t.key,t.ch), manager, phone, requestDate:"", inspectDate:"", inspectTime:"", result:"대기", certificateDate:"", memo});
+      targets.push({id:makeId(), groupId, regDate, serial, name:s.name, no:String(s.no||""), address:finalAddress(s), chargerType:t.label, chargerCh:countNum(t.ch), ...typeCounts(t.key,t.ch), manager, phone, hevManager:"미배정", requestDate:"", inspectDate:"", inspectTime:"", result:"대기", certificateDate:"", memo});
       addedRows++;
     });
   });
   saveData(); renderTargets(); renderKpis(); alert(selectedStations.length + "개 충전소가 " + serial + " 관리번호로 묶였고, 필증 기준 " + addedRows + "행이 대상지_리스트에 추가되었습니다.");
   resetSearchAndDetail();
 }
-function filterMatch(r, filter){ return !filter || [r.regDate,r.serial,r.name,r.no,r.address,r.chargerType,r.chargerCh,r.slow7,r.fast53,r.ultra105,r.manager,r.phone,r.requestDate,r.inspectDate,r.inspectTime,r.result,r.certificateDate,r.memo,r.completedAt].some(v=>norm(v).includes(filter)); }
+function filterMatch(r, filter){ return !filter || [r.regDate,r.serial,r.name,r.no,r.address,r.chargerType,r.chargerCh,r.slow7,r.fast53,r.ultra105,r.manager,r.phone,r.hevManager,r.requestDate,r.inspectDate,r.inspectTime,r.result,r.certificateDate,r.memo,r.completedAt].some(v=>norm(v).includes(filter)); }
 function rowGroupClass(r){ return `<span class="groupmark">${esc(r.serial)}</span>`; }
 function renderTargets(){
   const f = norm($("targetFilter").value); const rows = targets.map((r,i)=>({...r,index:i})).filter(r=>filterMatch(r,f));
@@ -410,12 +537,12 @@ function renderTargets(){
 }
 function renderSchedules(){
   const f = norm($("scheduleFilter").value); const rows = schedules.map((r,i)=>({...r,index:i})).filter(r=>filterMatch(r,f));
-  $("scheduleBody").innerHTML = rows.map(r=>{ const st=statusOf(r); return `<tr data-index="${r.index}"><td class="checkcell"><input type="checkbox" class="rowcheck"></td><td>${esc(r.regDate)}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td class="addr">${esc(r.address)}</td><td><b>${esc(r.chargerType||"미입력")}</b></td><td>${countNum(r.chargerCh)}</td><td><input data-field="manager" value="${esc(r.manager)}"></td><td><input data-field="phone" value="${esc(r.phone)}"></td><td><input type="date" data-field="requestDate" value="${esc(r.requestDate)}"></td><td><input type="date" data-field="inspectDate" value="${esc(r.inspectDate)}"></td><td><input type="time" data-field="inspectTime" value="${esc(r.inspectTime)}"></td><td><select data-field="result">${["대기","합격","불합격"].map(v=>`<option ${r.result===v?"selected":""}>${v}</option>`).join("")}</select></td><td><input type="date" data-field="certificateDate" value="${esc(r.certificateDate)}"></td><td><span class="badge ${badgeClass(st)}">${esc(st)}</span></td><td>${esc(ddayText(r.inspectDate))}</td><td><textarea class="memo" data-field="memo">${esc(r.memo)}</textarea></td><td class="btnrow"><button class="ok small completeOne">이 행 완료로</button><button class="secondary small backTarget">이 행 대상지로</button><button class="danger small delSchedule">이 행 삭제</button></td></tr>`; }).join("");
+  $("scheduleBody").innerHTML = rows.map(r=>{ const st=statusOf(r); return `<tr data-index="${r.index}"><td class="checkcell"><input type="checkbox" class="rowcheck"></td><td>${esc(r.regDate)}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td class="addr">${esc(r.address)}</td><td><b>${esc(r.chargerType||"미입력")}</b></td><td>${countNum(r.chargerCh)}</td><td><input data-field="manager" value="${esc(r.manager)}"></td><td><input data-field="phone" value="${esc(r.phone)}"></td><td><select data-field="hevManager">${managerOptions(r.hevManager)}</select></td><td><input type="date" data-field="requestDate" value="${esc(r.requestDate)}"></td><td><input type="date" data-field="inspectDate" value="${esc(r.inspectDate)}"></td><td><input type="time" data-field="inspectTime" value="${esc(r.inspectTime)}"></td><td><select data-field="result">${["대기","합격","불합격"].map(v=>`<option ${r.result===v?"selected":""}>${v}</option>`).join("")}</select></td><td><input type="date" data-field="certificateDate" value="${esc(r.certificateDate)}"></td><td><span class="badge ${badgeClass(st)}">${esc(st)}</span></td><td>${esc(ddayText(r.inspectDate))}</td><td><textarea class="memo" data-field="memo">${esc(r.memo)}</textarea></td><td class="btnrow"><button class="ok small completeOne">이 행 완료로</button><button class="secondary small backTarget">이 행 대상지로</button><button class="danger small delSchedule">이 행 삭제</button></td></tr>`; }).join("");
   $("checkAllSchedules").checked=false;
 }
 function renderCompleted(){
   const f = norm($("completeFilter").value); const rows = completed.map((r,i)=>({...r,index:i})).filter(r=>filterMatch(r,f));
-  $("completeBody").innerHTML = rows.map(r=>`<tr data-index="${r.index}"><td>${esc(r.completedAt)}</td><td>${esc(r.regDate)}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td class="addr">${esc(r.address)}</td><td><b>${esc(r.chargerType||"미입력")}</b></td><td>${countNum(r.chargerCh)}</td><td>${esc(r.manager)}</td><td>${esc(r.phone)}</td><td>${esc(r.requestDate)}</td><td>${esc(r.inspectDate)}</td><td>${esc(r.inspectTime)}</td><td>${esc(r.result)}</td><td>${esc(r.certificateDate)}</td><td><textarea class="memo" data-field="memo">${esc(r.memo)}</textarea></td><td class="btnrow"><button class="secondary small backSchedule">이 행 검사일정으로</button><button class="danger small delComplete">이 행 삭제</button></td></tr>`).join("");
+  $("completeBody").innerHTML = rows.map(r=>`<tr data-index="${r.index}"><td>${esc(r.completedAt)}</td><td>${esc(r.regDate)}</td><td>${rowGroupClass(r)}</td><td>${esc(r.name)}</td><td>${esc(r.no)}</td><td class="addr">${esc(r.address)}</td><td><b>${esc(r.chargerType||"미입력")}</b></td><td>${countNum(r.chargerCh)}</td><td>${esc(r.manager)}</td><td>${esc(r.phone)}</td><td>${esc(r.hevManager||"미배정")}</td><td>${esc(r.requestDate)}</td><td>${esc(r.inspectDate)}</td><td>${esc(r.inspectTime)}</td><td>${esc(r.result)}</td><td>${esc(r.certificateDate)}</td><td><textarea class="memo" data-field="memo">${esc(r.memo)}</textarea></td><td class="btnrow"><button class="secondary small backSchedule">이 행 검사일정으로</button><button class="danger small delComplete">이 행 삭제</button></td></tr>`).join("");
 }
 function renderAll(){ updateStationDbInfo(); renderSuggestions(); renderSelectedDetail(); renderTargets(); renderSchedules(); renderCompleted(); renderKpis(); renderUpcomingDashboard(); }
 function groupIndices(arr, idx){ const r=arr[idx]; if(!r) return []; const key=groupKeyOf(r); return arr.map((x,i)=>groupKeyOf(x)===key?i:-1).filter(i=>i>=0); }
@@ -457,10 +584,10 @@ function updateRecord(arr, idx, field, value, renderMode="section"){
   else renderSchedules();
 }
 const HEADERS_TARGET=["등록일자","관리번호","충전소명","충전소 번호","주소","충전기 종류","CH","담당자","연락처","메모"];
-const HEADERS_SCHEDULE=[...HEADERS_TARGET,"신청일자","검사예정일","검사예정시간","검사결과","필증수령일"];
+const HEADERS_SCHEDULE=[...HEADERS_TARGET.slice(0,9),"HEV담당자",...HEADERS_TARGET.slice(9),"신청일자","검사예정일","검사예정시간","검사결과","필증수령일"];
 const HEADERS_COMPLETE=["완료일자",...HEADERS_SCHEDULE];
 function toTargetRow(r){ return {"등록일자":r.regDate||"","관리번호":r.serial||"","충전소명":r.name||"","충전소 번호":r.no||"","주소":r.address||"","충전기 종류":r.chargerType||"미입력","CH":countNum(r.chargerCh),"담당자":r.manager||"","연락처":r.phone||"","메모":r.memo||""}; }
-function toScheduleRow(r){ return {...toTargetRow(r), "신청일자":r.requestDate||"","검사예정일":r.inspectDate||"","검사예정시간":r.inspectTime||"","검사결과":r.result||"대기","필증수령일":r.certificateDate||""}; }
+function toScheduleRow(r){ const base=toTargetRow(r); return {...base, "HEV담당자":r.hevManager||"미배정", "신청일자":r.requestDate||"","검사예정일":r.inspectDate||"","검사예정시간":r.inspectTime||"","검사결과":r.result||"대기","필증수령일":r.certificateDate||""}; }
 function toCompleteRow(r){ return {"완료일자":r.completedAt||"", ...toScheduleRow(r)}; }
 function wsFromRows(rows, headers){ const ws=XLSX.utils.json_to_sheet(rows, {header:headers}); XLSX.utils.sheet_add_aoa(ws,[headers],{origin:"A1"}); ws["!cols"]=headers.map(h=>({wch: Math.max(12, h.length*2)})); return ws; }
 function exportExcel(){
@@ -491,7 +618,7 @@ function rowToRecord(row){
     fast53:countNum(row["급속(53kW)/CH"]||row["급속(53kW)"]||row["급속"]),
     ultra105:countNum(row["초급속(105kW)/CH"]||row["초급속(105kW)"]||row["초급속"])
   };
-  return {id:makeId(), groupId:"grp_import_" + (row["관리번호"]||makeId()), regDate:normalizeExcelDate(row["등록일자"]||row["등록일"]||""), serial:row["관리번호"]||"", name:row["충전소명"]||"", no:row["충전소 번호"]||row["충전소번호"]||"", address:row["주소"]||"", chargerType:chargerType ? (typeLabelFromKey(key)==="미입력" ? String(chargerType) : typeLabelFromKey(key)) : "", chargerCh:chargerType ? ch : 0, ...typed, manager:row["담당자"]||"", phone:row["연락처"]||"", requestDate:normalizeExcelDate(row["신청일자"]||""), inspectDate:normalizeExcelDate(row["검사예정일"]||row["검사 일정"]||row["검사일정"]||""), inspectTime:normalizeExcelTime(row["검사예정시간"]||""), result:row["검사결과"]||row["결과"]||"대기", certificateDate:normalizeExcelDate(row["필증수령일"]||row["필증 수령일"]||""), memo:row["메모"]||"", completedAt:normalizeExcelDate(row["완료일자"]||"") };
+  return {id:makeId(), groupId:"grp_import_" + (row["관리번호"]||makeId()), regDate:normalizeExcelDate(row["등록일자"]||row["등록일"]||""), serial:row["관리번호"]||"", name:row["충전소명"]||"", no:row["충전소 번호"]||row["충전소번호"]||"", address:row["주소"]||"", chargerType:chargerType ? (typeLabelFromKey(key)==="미입력" ? String(chargerType) : typeLabelFromKey(key)) : "", chargerCh:chargerType ? ch : 0, ...typed, manager:row["담당자"]||"", phone:row["연락처"]||"", hevManager:row["HEV담당자"]||row["HEV 담당자"]||"미배정", requestDate:normalizeExcelDate(row["신청일자"]||""), inspectDate:normalizeExcelDate(row["검사예정일"]||row["검사 일정"]||row["검사일정"]||""), inspectTime:normalizeExcelTime(row["검사예정시간"]||""), result:row["검사결과"]||row["결과"]||"대기", certificateDate:normalizeExcelDate(row["필증수령일"]||row["필증 수령일"]||""), memo:row["메모"]||"", completedAt:normalizeExcelDate(row["완료일자"]||"") };
 }
 function fixImportedGroups(arr){
   const bySerial = new Map();
@@ -599,9 +726,18 @@ function resetStationDb(){
   localStorage.removeItem(STATION_DB_KEY); STATION_DB = DEFAULT_STATION_DB; hydrateAllAddresses(); saveData(); selectedNames.clear(); selectedStations=[]; renderAll(); alert("충전소DB를 기본값(검사일정_관리_템플릿2.xlsx 기준)으로 복원했습니다. 기존 목록 중 주소가 비어 있던 항목도 가능한 범위에서 재조회했습니다.");
 }
 
-function exportJson(){ download("검사일정_업무흐름백업.json", JSON.stringify({exportedAt:new Date().toISOString(), targets, schedules, completed}, null, 2), "application/json;charset=utf-8"); }
-function importJsonFile(file){ const reader = new FileReader(); reader.onload = ()=>{ try{ const obj=JSON.parse(reader.result); targets=migrateRecordArray(obj.targets); schedules=migrateRecordArray(obj.schedules); completed=migrateRecordArray(obj.completed); saveData(); renderAll(); alert("JSON 백업을 불러왔습니다."); }catch(e){ alert("JSON 파일을 불러오지 못했습니다: "+e.message); } }; reader.readAsText(file); }
+function exportJson(){ download("검사일정_업무흐름백업.json", JSON.stringify({exportedAt:new Date().toISOString(), hevManagers, targets, schedules, completed}, null, 2), "application/json;charset=utf-8"); }
+function importJsonFile(file){ const reader = new FileReader(); reader.onload = ()=>{ try{ const obj=JSON.parse(reader.result); if(Array.isArray(obj.hevManagers)){ hevManagers=[...new Set(["미배정", ...obj.hevManagers.map(v=>String(v).trim()).filter(Boolean)])]; saveHevManagers(); } targets=migrateRecordArray(obj.targets); schedules=migrateRecordArray(obj.schedules); completed=migrateRecordArray(obj.completed); saveData(); renderAll(); alert("JSON 백업을 불러왔습니다."); }catch(e){ alert("JSON 파일을 불러오지 못했습니다: "+e.message); } }; reader.readAsText(file); }
 function initEvents(){
+  if($("userLoginTab")) $("userLoginTab").addEventListener("click", ()=>{ $("userLoginBox").classList.remove("hidden"); $("adminLoginBox").classList.add("hidden"); });
+  if($("adminLoginTab")) $("adminLoginTab").addEventListener("click", ()=>{ $("adminLoginBox").classList.remove("hidden"); $("userLoginBox").classList.add("hidden"); });
+  if($("loginUser")) $("loginUser").addEventListener("click", ()=>{ const email=cleanEmail($("loginEmail").value); const code=String($("loginCode").value||"").trim().toUpperCase(); if(!email){ alert("이메일을 입력하세요."); return; } if(code !== accessCodeForEmail(email)){ alert("이메일 또는 접근 코드가 맞지 않습니다. 관리자에게 다시 확인하세요."); return; } applyAccessSession("user", email); });
+  if($("loginAdmin")) $("loginAdmin").addEventListener("click", ()=>{ if(String($("adminCode").value||"").trim() !== ADMIN_ACCESS_CODE){ alert("관리자 코드가 맞지 않습니다."); return; } applyAccessSession("admin", ""); });
+  if($("logoutAccess")) $("logoutAccess").addEventListener("click", ()=>applyAccessSession("guest", ""));
+  if($("generateAccessCode")) $("generateAccessCode").addEventListener("click", ()=>{ if(!isAdmin()) return; const email=cleanEmail($("approvalEmail").value); if(!email){ alert("승인할 이메일을 입력하세요."); return; } $("generatedAccessCode").value = accessCodeForEmail(email); });
+  if($("toggleAdminDescriptions")) $("toggleAdminDescriptions").addEventListener("click", ()=>{ adminDescriptionsHidden=!adminDescriptionsHidden; applyPermissions(); });
+  if($("addHevManager")) $("addHevManager").addEventListener("click", ()=>{ if(isAdmin()) addHevManager(); });
+  if($("hevManagerList")) $("hevManagerList").addEventListener("click", e=>{ const btn=e.target.closest(".removeHevManager"); if(!btn || !isAdmin()) return; const name=btn.dataset.name; if(confirm(`${name} 담당자를 삭제할까요? 기존 일정에 이미 배정된 값은 그대로 남습니다.`)){ hevManagers=hevManagers.filter(v=>v!==name); saveHevManagers(); renderHevManagerList(); renderSchedules(); } });
   document.querySelectorAll(".stagebtn").forEach(b=>b.addEventListener("click",()=>setStage(b.dataset.stage)));
   if($("dashboardHorizon")) $("dashboardHorizon").addEventListener("change", renderUpcomingDashboard);
   if($("dashboardBody")) $("dashboardBody").addEventListener("click", e=>{ const btn=e.target.closest(".dashGo"); if(!btn) return; setStage("schedules"); $("scheduleFilter").value = btn.dataset.filter || ""; renderSchedules(); window.scrollTo({top:0, behavior:"smooth"}); });
@@ -621,15 +757,16 @@ function initEvents(){
   $("moveCheckedTargets").addEventListener("click", ()=>moveCheckedGroups("targetBody", targets, schedules));
   $("completeCheckedSchedules").addEventListener("click", ()=>moveCheckedRows("scheduleBody", schedules, completed, ()=>({completedAt:todayISO()})));
   $("completeAutoSchedules").addEventListener("click", completeAuto); $("sortSchedules").addEventListener("click", sortSchedules);
-  $("exportExcel").addEventListener("click", exportExcel); $("exportCsv").addEventListener("click", exportCsv); $("exportJson").addEventListener("click", exportJson);
-  $("importExcel").addEventListener("change", e=>{ if(e.target.files[0]) importExcelFile(e.target.files[0]); e.target.value=""; });
-  $("importStationDb").addEventListener("change", e=>{ if(e.target.files[0]) parseStationDbWorkbook(e.target.files[0]); e.target.value=""; });
-  $("resetStationDb").addEventListener("click", resetStationDb);
-  $("importJson").addEventListener("change", e=>{ if(e.target.files[0]) importJsonFile(e.target.files[0]); e.target.value=""; });
-  $("clearAll").addEventListener("click", ()=>{ if(confirm("대상지_리스트, 검사 일정, 완료 목록을 모두 삭제할까요?")){ targets=[]; schedules=[]; completed=[]; saveData(); renderAll(); } });
+  $("exportExcel").addEventListener("click", exportExcel); $("exportCsv").addEventListener("click", ()=>{ if(isAdmin()) exportCsv(); }); $("exportJson").addEventListener("click", ()=>{ if(isAdmin()) exportJson(); });
+  $("importExcel").addEventListener("change", e=>{ if(isAdmin() && e.target.files[0]) importExcelFile(e.target.files[0]); e.target.value=""; });
+  $("importStationDb").addEventListener("change", e=>{ if(isAdmin() && e.target.files[0]) parseStationDbWorkbook(e.target.files[0]); e.target.value=""; });
+  $("resetStationDb").addEventListener("click", ()=>{ if(isAdmin()) resetStationDb(); });
+  $("importJson").addEventListener("change", e=>{ if(isAdmin() && e.target.files[0]) importJsonFile(e.target.files[0]); e.target.value=""; });
+  $("clearAll").addEventListener("click", ()=>{ if(isAdmin() && confirm("대상지_리스트, 검사 일정, 완료 목록을 모두 삭제할까요?")){ targets=[]; schedules=[]; completed=[]; saveData(); renderAll(); } });
 }
+removePastedDiffArtifacts();
 $("regDate").value=todayISO();
-loadData(); initEvents(); renderAll();
+loadData(); initEvents(); renderAll(); loadAccessSession();
 </script>
 </body>
 </html>
